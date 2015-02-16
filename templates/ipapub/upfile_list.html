@@ -1,0 +1,53 @@
+
+<h3>Up Ipas</h3>
+<p></p>
+{% if object_list %}
+    <table id="ipas">
+        <tr>
+            <th>Url</th>
+            <th>状态</th>
+            <th>标签</th>
+            <th>用户</th>
+            <th>时间</th>
+            <th>发布包</th>
+        </tr>    
+        {% for upfile in object_list %}
+            <tr>
+                <td>
+                	{% if upfile.signed and upfile.plist %}
+                		<a href="{{ upfile.path }}" type="text/plain">{{ upfile.path }}</a>
+                	{% endif %}
+                </td>            
+                <td>{{ upfile.status }}</td>
+                <td>{{ upfile.label }}</td>
+                <td>{{ upfile.user }}</td>
+                <td>{{ upfile.up_date }}</td>
+                <td>
+                	{% if upfile.pub %}
+                		<a href="{{ upfile.pub.url }}"">{{ upfile.pub.name }}</a>
+                	{% endif %}
+                </td>                      
+            </tr>
+        {% endfor %}
+    </table>
+    {# .... **Now the pagination section** .... #}
+    {% if is_paginated %}
+    	<p></p>
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'all' %}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{% url 'all' %}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+{% else %}
+    
+    <p>No ipas found!!! :(</p>
+{% endif %}
