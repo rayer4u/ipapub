@@ -161,7 +161,7 @@ def upload(request):
     else:
         form = UploadModelFileForm()
         
-    return render(request, 'upload.html', {'form': form})
+    return render(request, 'ipapub/upload.html', {'form': form})
 
 class AllView(ListView):
     template_name="ipapub/upfile_list.html"
