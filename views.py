@@ -24,7 +24,7 @@ import ipapub
 import zipfile
 import sys
 
-from forms import UploadModelFileForm, ModelFileForm
+from forms import UploadModelFileForm
 from models import UpFile
 
 rule_repl = re.compile(r"(\{\{)(.*)(\}\})")
@@ -169,13 +169,11 @@ class AllView(ListView):
     
     def get_queryset(self):
         return UpFile.objects.order_by("-up_date")
-
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(ListView, self).get_context_data(**kwargs)
         # Add in the publisher
-        context['basedir'] = '%s://%s' % ('https' if self.request.is_secure() else 'http',
-                             self.request.get_host())
+        context['request'] = self.request
         return context
 
 class OneView(DetailView):

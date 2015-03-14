@@ -5,7 +5,4 @@ class UploadModelFileForm(forms.ModelForm):
     class Meta:
         model = UpFile
         exclude = ('pub', 'plist', 'status', 'up_date', 'from_ip')
-        
-class ModelFileForm(forms.ModelForm):
-    class Meta:
-        model = UpFile
+
