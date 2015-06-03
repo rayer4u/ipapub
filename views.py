@@ -92,6 +92,7 @@ def upload(request):
                 out, err = p.communicate()
                 
                 if len(err) > 0:
+                    print(err, file=sys.stderr)
                     o.status = 'signfail'
                     o.save()
                     shutil.rmtree(tmpdir)

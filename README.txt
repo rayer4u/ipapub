@@ -1,4 +1,5 @@
 ios的应用自动签名、发布工具，基于django app
+setting里需要配置MEDIA_URL, MEDIA_ROOT
 1、签名相关的证书和描述文件位于/media/profiles/按照以下目录规则，某个证书下的某个项目的描述文件
 	证书1/
 		cert.cfg
