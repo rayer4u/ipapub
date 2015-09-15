@@ -1,8 +1,46 @@
-<h1>{{ object.label }}&nbsp;</h1>
-<p>安装:<a href="itms-services://?action=download-manifest&url={{ basedir }}{{ object.plist.url }}" type="text/plain">{{ upfile.path }}</a></p>
+{% extends "base.html" %}
+{% block nav-left %}
+      <a class="navbar-brand" href="">{{ object.label }}</a>
+{% endblock %} 
+{% block nav-right %}
+{% endblock %} 
+{% block main-body %}
+  <dl class="dl-horizontal">
+    <dt>安装:</dt>   
+    <dd>
+      <a href="itms-services://?action=download-manifest%26url={{ basedir }}{{ object.plist.url }}" type="text/plain">{{ upfile.path }}</a>
+    </dd>
+    
+
 {% if object.pub %}
-	<p>发布包:<a href="{{ object.pub.url }}"">{{ object.pub.name }}</a></p>
+    <dt>
+        发布包:
+    </dt>   
+    <dd>
+      <a href="{{ object.pub.url }}">{{ object.pub.name }}</a>
+    </dd>
 {% endif %}
-<p>签名包:<a href="{{ object.signed.url }}" type="application/iphone">{{ object.signed }}</a></p>
-<p>用户: {{ object.user }}</p>
-<p>时间: {{ object.up_date }}</p>
+
+    <dt>
+        签名包:
+    </dt>   
+    <dd>
+      <a href="{{ object.signed.url }}" type="application/iphone">{{ object.signed }}</a>
+    </dd>
+
+    <dt>
+        用户: 
+    </dt>   
+    <dd>
+      {{ object.user }}
+    </dd>
+
+    <dt>
+        时间:
+    </dt>   
+    <dd>
+      {{ object.up_date }}
+    </dd>
+  </dl>      
+{% endblock %}
+
