@@ -1,6 +1,7 @@
 from django.contrib import admin
-from models import UpFile
+from .models import UpFile
 import os
+
 
 class PathFilter(admin.SimpleListFilter):
     # Human-readable title which will be displayed in the
@@ -12,8 +13,9 @@ class PathFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         qs = model_admin.get_queryset(request)
-        
-        ret = [(b, b) for b in set((os.path.dirname(a) if os.path.dirname(a) != '' else a) for a in qs.values_list('path', flat=True))]
+
+        ret = [(b, b) for b in set((os.path.dirname(a) if os.path.dirname(
+            a) != '' else a) for a in qs.values_list('path', flat=True))]
         print(ret)
         return ret
 
@@ -23,10 +25,12 @@ class PathFilter(admin.SimpleListFilter):
         if self.value() is not None:
             print(self.value())
             return queryset.filter(path__startswith=self.value(),)
-            
+
+
 class UpFileAdmin(admin.ModelAdmin):
     list_display = ('path', 'label')
     list_editable = ('label',)
-    list_filter = ('user', PathFilter) 
-    
+    list_filter = ('user', PathFilter)
+
+
 admin.site.register(UpFile, UpFileAdmin)
