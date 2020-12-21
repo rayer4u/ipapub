@@ -15,7 +15,7 @@ from uuid import uuid4
 
 import os
 import json
-from urllib.parse import urlparse
+from urllib.parse import urljoin
 import subprocess
 import shutil
 import re
@@ -104,9 +104,9 @@ def upload(request):
             path_plist_rela = splitext(path_rela)[0] + '.plist'
             path_plist_full = join(settings.MEDIA_ROOT, path_plist_rela)
             f = open(path_plist_full, 'w+')
-            gens = {"ipaurl": urlparse.urljoin(current_uri, join(settings.MEDIA_URL, path_rela)),
-                    "iconsmallurl": urlparse.urljoin(current_uri, join(settings.MEDIA_URL, o.icons.url)),
-                    "iconbigurl": urlparse.urljoin(current_uri, join(settings.MEDIA_URL, o.iconb.url)),
+            gens = {"ipaurl": urljoin(current_uri, join(settings.MEDIA_URL, path_rela)),
+                    "iconsmallurl": urljoin(current_uri, join(settings.MEDIA_URL, o.icons.url)),
+                    "iconbigurl": urljoin(current_uri, join(settings.MEDIA_URL, o.iconb.url)),
                     }
             f.write(rule_repl.sub(lambda mt: gens[mt.group(2).lower()] if mt.group(2).lower(
             ) in gens else mt.group(1) + mt.group(2) + mt.group(3), request.POST['plist']).encode('utf-8'))
@@ -157,7 +157,7 @@ def upload(request):
             # 保存列表
             form.save_m2m()
 
-            result = {"url": urlparse.urljoin(current_uri, join(request.path, o.path))}
+            result = {"url": urljoin(current_uri, join(request.path, o.path))}
         else:
             result = {"err": dict(form.errors)}
         return HttpResponse(json.dumps(result), content_type="application/json")
