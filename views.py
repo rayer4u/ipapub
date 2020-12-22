@@ -109,7 +109,7 @@ def upload(request):
                     "iconbigurl": urljoin(current_uri, join(settings.MEDIA_URL, o.iconb.url)),
                     }
             f.write(rule_repl.sub(lambda mt: gens[mt.group(2).lower()] if mt.group(2).lower(
-            ) in gens else mt.group(1) + mt.group(2) + mt.group(3), request.POST['plist']).encode('utf-8'))
+            ) in gens else mt.group(1) + mt.group(2) + mt.group(3), request.POST['plist']))
             f.close()
             o.plist.name = path_plist_rela
             o.save()
@@ -123,7 +123,7 @@ def upload(request):
                         "iconbigurl": request.POST['iconbigurl'] if 'iconbigurl' in request.POST else '',
                         }
                 f.write(rule_repl.sub(lambda mt: gens[mt.group(2).lower()] if mt.group(2).lower(
-                ) in gens else mt.group(1) + mt.group(2) + mt.group(3), request.POST['plist']).encode('utf-8'))
+                ) in gens else mt.group(1) + mt.group(2) + mt.group(3), request.POST['plist']))
                 f.close()
 
                 path_zip_rela = splitext(path_rela)[0] + '.zip'

@@ -68,7 +68,7 @@ class UpFile(models.Model):
                                            upload_to=icon_path)  # 大图标
     plist = models.FileField(upload_to=ipapub.PACKAGE_DIR)  # plist文件
     pub = models.FileField(upload_to=ipapub.PACKAGE_DIR)  # 发布的文件压缩包集合
-    signed = ContentTypeRestrictedFileField(content_types=['application/iphone'],
+    signed = ContentTypeRestrictedFileField(content_types=['application/iphone', 'application/octet-stream'],
                                             max_upload_size=104857600,
                                             upload_to=icon_path, blank=True, null=True)  # 签名好的文件
     status = models.CharField(max_length=10, blank=True)  # 状态，uploaded，。。。
